@@ -165,50 +165,50 @@ def rnn_zaremba(hparams, model):
   lstm_w_0 = [
       v for v in tf.trainable_variables()
       if v.op.name ==
-      str(model) + '/rnn/multi_rnn_cell/cell_0/basic_lstm_cell/weights'
+      str(model) + '/rnn/multi_rnn_cell/cell_0/basic_lstm_cell/kernel'
   ][0]
   lstm_b_0 = [
       v for v in tf.trainable_variables()
       if v.op.name ==
-      str(model) + '/rnn/multi_rnn_cell/cell_0/basic_lstm_cell/biases'
+      str(model) + '/rnn/multi_rnn_cell/cell_0/basic_lstm_cell/bias'
   ][0]
   lstm_w_1 = [
       v for v in tf.trainable_variables()
       if v.op.name ==
-      str(model) + '/rnn/multi_rnn_cell/cell_1/basic_lstm_cell/weights'
+      str(model) + '/rnn/multi_rnn_cell/cell_1/basic_lstm_cell/kernel'
   ][0]
   lstm_b_1 = [
       v for v in tf.trainable_variables()
       if v.op.name ==
-      str(model) + '/rnn/multi_rnn_cell/cell_1/basic_lstm_cell/biases'
+      str(model) + '/rnn/multi_rnn_cell/cell_1/basic_lstm_cell/bias'
   ][0]
 
   # Dictionary mapping.
   if model == 'gen':
     variable_mapping = {
         'Model/embedding': embedding,
-        'Model/RNN/multi_rnn_cell/cell_0/basic_lstm_cell/weights': lstm_w_0,
-        'Model/RNN/multi_rnn_cell/cell_0/basic_lstm_cell/biases': lstm_b_0,
-        'Model/RNN/multi_rnn_cell/cell_1/basic_lstm_cell/weights': lstm_w_1,
-        'Model/RNN/multi_rnn_cell/cell_1/basic_lstm_cell/biases': lstm_b_1,
+        'Model/RNN/multi_rnn_cell/cell_0/basic_lstm_cell/kernel': lstm_w_0,
+        'Model/RNN/multi_rnn_cell/cell_0/basic_lstm_cell/bias': lstm_b_0,
+        'Model/RNN/multi_rnn_cell/cell_1/basic_lstm_cell/kernel': lstm_w_1,
+        'Model/RNN/multi_rnn_cell/cell_1/basic_lstm_cell/bias': lstm_b_1,
         'Model/softmax_w': softmax_w,
         'Model/softmax_b': softmax_b
     }
   else:
     if FLAGS.dis_share_embedding:
       variable_mapping = {
-          'Model/RNN/multi_rnn_cell/cell_0/basic_lstm_cell/weights': lstm_w_0,
-          'Model/RNN/multi_rnn_cell/cell_0/basic_lstm_cell/biases': lstm_b_0,
-          'Model/RNN/multi_rnn_cell/cell_1/basic_lstm_cell/weights': lstm_w_1,
-          'Model/RNN/multi_rnn_cell/cell_1/basic_lstm_cell/biases': lstm_b_1
+          'Model/RNN/multi_rnn_cell/cell_0/basic_lstm_cell/kernel': lstm_w_0,
+          'Model/RNN/multi_rnn_cell/cell_0/basic_lstm_cell/bias': lstm_b_0,
+          'Model/RNN/multi_rnn_cell/cell_1/basic_lstm_cell/kernel': lstm_w_1,
+          'Model/RNN/multi_rnn_cell/cell_1/basic_lstm_cell/bias': lstm_b_1
       }
     else:
       variable_mapping = {
           'Model/embedding': embedding,
-          'Model/RNN/multi_rnn_cell/cell_0/basic_lstm_cell/weights': lstm_w_0,
-          'Model/RNN/multi_rnn_cell/cell_0/basic_lstm_cell/biases': lstm_b_0,
-          'Model/RNN/multi_rnn_cell/cell_1/basic_lstm_cell/weights': lstm_w_1,
-          'Model/RNN/multi_rnn_cell/cell_1/basic_lstm_cell/biases': lstm_b_1
+          'Model/RNN/multi_rnn_cell/cell_0/basic_lstm_cell/kernel': lstm_w_0,
+          'Model/RNN/multi_rnn_cell/cell_0/basic_lstm_cell/bias': lstm_b_0,
+          'Model/RNN/multi_rnn_cell/cell_1/basic_lstm_cell/kernel': lstm_w_1,
+          'Model/RNN/multi_rnn_cell/cell_1/basic_lstm_cell/bias': lstm_b_1
       }
 
   return variable_mapping
@@ -358,22 +358,22 @@ def gen_encoder_seq2seq(hparams):
   encoder_lstm_w_0 = [
       v for v in tf.trainable_variables()
       if v.op.name ==
-      'gen/encoder/rnn/multi_rnn_cell/cell_0/basic_lstm_cell/weights'
+      'gen/encoder/rnn/multi_rnn_cell/cell_0/basic_lstm_cell/kernel'
   ][0]
   encoder_lstm_b_0 = [
       v for v in tf.trainable_variables()
       if v.op.name ==
-      'gen/encoder/rnn/multi_rnn_cell/cell_0/basic_lstm_cell/biases'
+      'gen/encoder/rnn/multi_rnn_cell/cell_0/basic_lstm_cell/bias'
   ][0]
   encoder_lstm_w_1 = [
       v for v in tf.trainable_variables()
       if v.op.name ==
-      'gen/encoder/rnn/multi_rnn_cell/cell_1/basic_lstm_cell/weights'
+      'gen/encoder/rnn/multi_rnn_cell/cell_1/basic_lstm_cell/kernel'
   ][0]
   encoder_lstm_b_1 = [
       v for v in tf.trainable_variables()
       if v.op.name ==
-      'gen/encoder/rnn/multi_rnn_cell/cell_1/basic_lstm_cell/biases'
+      'gen/encoder/rnn/multi_rnn_cell/cell_1/basic_lstm_cell/bias'
   ][0]
 
   if FLAGS.data_set == 'ptb':
@@ -385,24 +385,24 @@ def gen_encoder_seq2seq(hparams):
     variable_mapping = {
         str(model_str) + '/embedding':
             encoder_embedding,
-        str(model_str) + '/RNN/multi_rnn_cell/cell_0/basic_lstm_cell/weights':
+        str(model_str) + '/RNN/multi_rnn_cell/cell_0/basic_lstm_cell/kernel':
             encoder_lstm_w_0,
-        str(model_str) + '/RNN/multi_rnn_cell/cell_0/basic_lstm_cell/biases':
+        str(model_str) + '/RNN/multi_rnn_cell/cell_0/basic_lstm_cell/bias':
             encoder_lstm_b_0,
-        str(model_str) + '/RNN/multi_rnn_cell/cell_1/basic_lstm_cell/weights':
+        str(model_str) + '/RNN/multi_rnn_cell/cell_1/basic_lstm_cell/kernel':
             encoder_lstm_w_1,
-        str(model_str) + '/RNN/multi_rnn_cell/cell_1/basic_lstm_cell/biases':
+        str(model_str) + '/RNN/multi_rnn_cell/cell_1/basic_lstm_cell/bias':
             encoder_lstm_b_1
     }
   else:
     variable_mapping = {
-        str(model_str) + '/RNN/multi_rnn_cell/cell_0/basic_lstm_cell/weights':
+        str(model_str) + '/RNN/multi_rnn_cell/cell_0/basic_lstm_cell/kernel':
             encoder_lstm_w_0,
-        str(model_str) + '/RNN/multi_rnn_cell/cell_0/basic_lstm_cell/biases':
+        str(model_str) + '/RNN/multi_rnn_cell/cell_0/basic_lstm_cell/bias':
             encoder_lstm_b_0,
-        str(model_str) + '/RNN/multi_rnn_cell/cell_1/basic_lstm_cell/weights':
+        str(model_str) + '/RNN/multi_rnn_cell/cell_1/basic_lstm_cell/kernel':
             encoder_lstm_w_1,
-        str(model_str) + '/RNN/multi_rnn_cell/cell_1/basic_lstm_cell/biases':
+        str(model_str) + '/RNN/multi_rnn_cell/cell_1/basic_lstm_cell/bias':
             encoder_lstm_b_1
     }
   return variable_mapping
@@ -420,22 +420,22 @@ def gen_decoder_seq2seq(hparams):
   decoder_lstm_w_0 = [
       v for v in tf.trainable_variables()
       if v.op.name ==
-      'gen/decoder/rnn/multi_rnn_cell/cell_0/basic_lstm_cell/weights'
+      'gen/decoder/rnn/multi_rnn_cell/cell_0/basic_lstm_cell/kernel'
   ][0]
   decoder_lstm_b_0 = [
       v for v in tf.trainable_variables()
       if v.op.name ==
-      'gen/decoder/rnn/multi_rnn_cell/cell_0/basic_lstm_cell/biases'
+      'gen/decoder/rnn/multi_rnn_cell/cell_0/basic_lstm_cell/bias'
   ][0]
   decoder_lstm_w_1 = [
       v for v in tf.trainable_variables()
       if v.op.name ==
-      'gen/decoder/rnn/multi_rnn_cell/cell_1/basic_lstm_cell/weights'
+      'gen/decoder/rnn/multi_rnn_cell/cell_1/basic_lstm_cell/kernel'
   ][0]
   decoder_lstm_b_1 = [
       v for v in tf.trainable_variables()
       if v.op.name ==
-      'gen/decoder/rnn/multi_rnn_cell/cell_1/basic_lstm_cell/biases'
+      'gen/decoder/rnn/multi_rnn_cell/cell_1/basic_lstm_cell/bias'
   ][0]
   decoder_softmax_b = [
       v for v in tf.trainable_variables()
@@ -450,13 +450,13 @@ def gen_decoder_seq2seq(hparams):
   variable_mapping = {
       str(model_str) + '/embedding':
           decoder_embedding,
-      str(model_str) + '/RNN/multi_rnn_cell/cell_0/basic_lstm_cell/weights':
+      str(model_str) + '/RNN/multi_rnn_cell/cell_0/basic_lstm_cell/kernel':
           decoder_lstm_w_0,
-      str(model_str) + '/RNN/multi_rnn_cell/cell_0/basic_lstm_cell/biases':
+      str(model_str) + '/RNN/multi_rnn_cell/cell_0/basic_lstm_cell/bias':
           decoder_lstm_b_0,
-      str(model_str) + '/RNN/multi_rnn_cell/cell_1/basic_lstm_cell/weights':
+      str(model_str) + '/RNN/multi_rnn_cell/cell_1/basic_lstm_cell/kernel':
           decoder_lstm_w_1,
-      str(model_str) + '/RNN/multi_rnn_cell/cell_1/basic_lstm_cell/biases':
+      str(model_str) + '/RNN/multi_rnn_cell/cell_1/basic_lstm_cell/bias':
           decoder_lstm_b_1,
       str(model_str) + '/softmax_b':
           decoder_softmax_b
@@ -487,34 +487,34 @@ def dis_fwd_bidirectional(hparams):
     ][0]
   fw_lstm_w_0 = [
       v for v in tf.trainable_variables()
-      if v.op.name == 'dis/rnn/fw/multi_rnn_cell/cell_0/basic_lstm_cell/weights'
+      if v.op.name == 'dis/rnn/fw/multi_rnn_cell/cell_0/basic_lstm_cell/kernel'
   ][0]
   fw_lstm_b_0 = [
       v for v in tf.trainable_variables()
-      if v.op.name == 'dis/rnn/fw/multi_rnn_cell/cell_0/basic_lstm_cell/biases'
+      if v.op.name == 'dis/rnn/fw/multi_rnn_cell/cell_0/basic_lstm_cell/bias'
   ][0]
   fw_lstm_w_1 = [
       v for v in tf.trainable_variables()
-      if v.op.name == 'dis/rnn/fw/multi_rnn_cell/cell_1/basic_lstm_cell/weights'
+      if v.op.name == 'dis/rnn/fw/multi_rnn_cell/cell_1/basic_lstm_cell/kernel'
   ][0]
   fw_lstm_b_1 = [
       v for v in tf.trainable_variables()
-      if v.op.name == 'dis/rnn/fw/multi_rnn_cell/cell_1/basic_lstm_cell/biases'
+      if v.op.name == 'dis/rnn/fw/multi_rnn_cell/cell_1/basic_lstm_cell/bias'
   ][0]
   if FLAGS.dis_share_embedding:
     variable_mapping = {
-        'Model/RNN/multi_rnn_cell/cell_0/basic_lstm_cell/weights': fw_lstm_w_0,
-        'Model/RNN/multi_rnn_cell/cell_0/basic_lstm_cell/biases': fw_lstm_b_0,
-        'Model/RNN/multi_rnn_cell/cell_1/basic_lstm_cell/weights': fw_lstm_w_1,
-        'Model/RNN/multi_rnn_cell/cell_1/basic_lstm_cell/biases': fw_lstm_b_1
+        'Model/RNN/multi_rnn_cell/cell_0/basic_lstm_cell/kernel': fw_lstm_w_0,
+        'Model/RNN/multi_rnn_cell/cell_0/basic_lstm_cell/bias': fw_lstm_b_0,
+        'Model/RNN/multi_rnn_cell/cell_1/basic_lstm_cell/kernel': fw_lstm_w_1,
+        'Model/RNN/multi_rnn_cell/cell_1/basic_lstm_cell/bias': fw_lstm_b_1
     }
   else:
     variable_mapping = {
         'Model/embedding': embedding,
-        'Model/RNN/multi_rnn_cell/cell_0/basic_lstm_cell/weights': fw_lstm_w_0,
-        'Model/RNN/multi_rnn_cell/cell_0/basic_lstm_cell/biases': fw_lstm_b_0,
-        'Model/RNN/multi_rnn_cell/cell_1/basic_lstm_cell/weights': fw_lstm_w_1,
-        'Model/RNN/multi_rnn_cell/cell_1/basic_lstm_cell/biases': fw_lstm_b_1
+        'Model/RNN/multi_rnn_cell/cell_0/basic_lstm_cell/kernel': fw_lstm_w_0,
+        'Model/RNN/multi_rnn_cell/cell_0/basic_lstm_cell/bias': fw_lstm_b_0,
+        'Model/RNN/multi_rnn_cell/cell_1/basic_lstm_cell/kernel': fw_lstm_w_1,
+        'Model/RNN/multi_rnn_cell/cell_1/basic_lstm_cell/bias': fw_lstm_b_1
     }
   return variable_mapping
 
@@ -537,26 +537,26 @@ def dis_bwd_bidirectional(hparams):
   # Backward Discriminator Elements.
   bw_lstm_w_0 = [
       v for v in tf.trainable_variables()
-      if v.op.name == 'dis/rnn/bw/multi_rnn_cell/cell_0/basic_lstm_cell/weights'
+      if v.op.name == 'dis/rnn/bw/multi_rnn_cell/cell_0/basic_lstm_cell/kernel'
   ][0]
   bw_lstm_b_0 = [
       v for v in tf.trainable_variables()
-      if v.op.name == 'dis/rnn/bw/multi_rnn_cell/cell_0/basic_lstm_cell/biases'
+      if v.op.name == 'dis/rnn/bw/multi_rnn_cell/cell_0/basic_lstm_cell/bias'
   ][0]
   bw_lstm_w_1 = [
       v for v in tf.trainable_variables()
-      if v.op.name == 'dis/rnn/bw/multi_rnn_cell/cell_1/basic_lstm_cell/weights'
+      if v.op.name == 'dis/rnn/bw/multi_rnn_cell/cell_1/basic_lstm_cell/kernel'
   ][0]
   bw_lstm_b_1 = [
       v for v in tf.trainable_variables()
-      if v.op.name == 'dis/rnn/bw/multi_rnn_cell/cell_1/basic_lstm_cell/biases'
+      if v.op.name == 'dis/rnn/bw/multi_rnn_cell/cell_1/basic_lstm_cell/bias'
   ][0]
 
   variable_mapping = {
-      'Model/RNN/multi_rnn_cell/cell_0/basic_lstm_cell/weights': bw_lstm_w_0,
-      'Model/RNN/multi_rnn_cell/cell_0/basic_lstm_cell/biases': bw_lstm_b_0,
-      'Model/RNN/multi_rnn_cell/cell_1/basic_lstm_cell/weights': bw_lstm_w_1,
-      'Model/RNN/multi_rnn_cell/cell_1/basic_lstm_cell/biases': bw_lstm_b_1
+      'Model/RNN/multi_rnn_cell/cell_0/basic_lstm_cell/kernel': bw_lstm_w_0,
+      'Model/RNN/multi_rnn_cell/cell_0/basic_lstm_cell/bias': bw_lstm_b_0,
+      'Model/RNN/multi_rnn_cell/cell_1/basic_lstm_cell/kernel': bw_lstm_w_1,
+      'Model/RNN/multi_rnn_cell/cell_1/basic_lstm_cell/bias': bw_lstm_b_1
   }
   return variable_mapping
 
@@ -578,22 +578,22 @@ def dis_encoder_seq2seq(hparams):
   encoder_lstm_w_0 = [
       v for v in tf.trainable_variables()
       if v.op.name ==
-      'dis/encoder/rnn/multi_rnn_cell/cell_0/basic_lstm_cell/weights'
+      'dis/encoder/rnn/multi_rnn_cell/cell_0/basic_lstm_cell/kernel'
   ][0]
   encoder_lstm_b_0 = [
       v for v in tf.trainable_variables()
       if v.op.name ==
-      'dis/encoder/rnn/multi_rnn_cell/cell_0/basic_lstm_cell/biases'
+      'dis/encoder/rnn/multi_rnn_cell/cell_0/basic_lstm_cell/bias'
   ][0]
   encoder_lstm_w_1 = [
       v for v in tf.trainable_variables()
       if v.op.name ==
-      'dis/encoder/rnn/multi_rnn_cell/cell_1/basic_lstm_cell/weights'
+      'dis/encoder/rnn/multi_rnn_cell/cell_1/basic_lstm_cell/kernel'
   ][0]
   encoder_lstm_b_1 = [
       v for v in tf.trainable_variables()
       if v.op.name ==
-      'dis/encoder/rnn/multi_rnn_cell/cell_1/basic_lstm_cell/biases'
+      'dis/encoder/rnn/multi_rnn_cell/cell_1/basic_lstm_cell/bias'
   ][0]
 
   if FLAGS.data_set == 'ptb':
@@ -602,13 +602,13 @@ def dis_encoder_seq2seq(hparams):
     model_str = 'model'
 
   variable_mapping = {
-      str(model_str) + '/RNN/multi_rnn_cell/cell_0/basic_lstm_cell/weights':
+      str(model_str) + '/RNN/multi_rnn_cell/cell_0/basic_lstm_cell/kernel':
           encoder_lstm_w_0,
-      str(model_str) + '/RNN/multi_rnn_cell/cell_0/basic_lstm_cell/biases':
+      str(model_str) + '/RNN/multi_rnn_cell/cell_0/basic_lstm_cell/bias':
           encoder_lstm_b_0,
-      str(model_str) + '/RNN/multi_rnn_cell/cell_1/basic_lstm_cell/weights':
+      str(model_str) + '/RNN/multi_rnn_cell/cell_1/basic_lstm_cell/kernel':
           encoder_lstm_w_1,
-      str(model_str) + '/RNN/multi_rnn_cell/cell_1/basic_lstm_cell/biases':
+      str(model_str) + '/RNN/multi_rnn_cell/cell_1/basic_lstm_cell/bias':
           encoder_lstm_b_1
   }
   return variable_mapping
@@ -626,22 +626,22 @@ def dis_decoder_seq2seq(hparams):
   decoder_lstm_w_0 = [
       v for v in tf.trainable_variables()
       if v.op.name ==
-      'dis/decoder/rnn/multi_rnn_cell/cell_0/basic_lstm_cell/weights'
+      'dis/decoder/rnn/multi_rnn_cell/cell_0/basic_lstm_cell/kernel'
   ][0]
   decoder_lstm_b_0 = [
       v for v in tf.trainable_variables()
       if v.op.name ==
-      'dis/decoder/rnn/multi_rnn_cell/cell_0/basic_lstm_cell/biases'
+      'dis/decoder/rnn/multi_rnn_cell/cell_0/basic_lstm_cell/bias'
   ][0]
   decoder_lstm_w_1 = [
       v for v in tf.trainable_variables()
       if v.op.name ==
-      'dis/decoder/rnn/multi_rnn_cell/cell_1/basic_lstm_cell/weights'
+      'dis/decoder/rnn/multi_rnn_cell/cell_1/basic_lstm_cell/kernel'
   ][0]
   decoder_lstm_b_1 = [
       v for v in tf.trainable_variables()
       if v.op.name ==
-      'dis/decoder/rnn/multi_rnn_cell/cell_1/basic_lstm_cell/biases'
+      'dis/decoder/rnn/multi_rnn_cell/cell_1/basic_lstm_cell/bias'
   ][0]
 
   if FLAGS.data_set == 'ptb':
@@ -653,24 +653,24 @@ def dis_decoder_seq2seq(hparams):
     variable_mapping = {
         str(model_str) + '/embedding':
             decoder_embedding,
-        str(model_str) + '/RNN/multi_rnn_cell/cell_0/basic_lstm_cell/weights':
+        str(model_str) + '/RNN/multi_rnn_cell/cell_0/basic_lstm_cell/kernel':
             decoder_lstm_w_0,
-        str(model_str) + '/RNN/multi_rnn_cell/cell_0/basic_lstm_cell/biases':
+        str(model_str) + '/RNN/multi_rnn_cell/cell_0/basic_lstm_cell/bias':
             decoder_lstm_b_0,
-        str(model_str) + '/RNN/multi_rnn_cell/cell_1/basic_lstm_cell/weights':
+        str(model_str) + '/RNN/multi_rnn_cell/cell_1/basic_lstm_cell/kernel':
             decoder_lstm_w_1,
-        str(model_str) + '/RNN/multi_rnn_cell/cell_1/basic_lstm_cell/biases':
+        str(model_str) + '/RNN/multi_rnn_cell/cell_1/basic_lstm_cell/bias':
             decoder_lstm_b_1
     }
   else:
     variable_mapping = {
-        str(model_str) + '/RNN/multi_rnn_cell/cell_0/basic_lstm_cell/weights':
+        str(model_str) + '/RNN/multi_rnn_cell/cell_0/basic_lstm_cell/kernel':
             decoder_lstm_w_0,
-        str(model_str) + '/RNN/multi_rnn_cell/cell_0/basic_lstm_cell/biases':
+        str(model_str) + '/RNN/multi_rnn_cell/cell_0/basic_lstm_cell/bias':
             decoder_lstm_b_0,
-        str(model_str) + '/RNN/multi_rnn_cell/cell_1/basic_lstm_cell/weights':
+        str(model_str) + '/RNN/multi_rnn_cell/cell_1/basic_lstm_cell/kernel':
             decoder_lstm_w_1,
-        str(model_str) + '/RNN/multi_rnn_cell/cell_1/basic_lstm_cell/biases':
+        str(model_str) + '/RNN/multi_rnn_cell/cell_1/basic_lstm_cell/bias':
             decoder_lstm_b_1,
     }
   return variable_mapping
@@ -690,22 +690,22 @@ def dis_seq2seq_vd(hparams):
   encoder_lstm_w_0 = [
       v for v in tf.trainable_variables()
       if v.op.name ==
-      'dis/encoder/rnn/multi_rnn_cell/cell_0/basic_lstm_cell/weights'
+      'dis/encoder/rnn/multi_rnn_cell/cell_0/basic_lstm_cell/kernel'
   ][0]
   encoder_lstm_b_0 = [
       v for v in tf.trainable_variables()
       if v.op.name ==
-      'dis/encoder/rnn/multi_rnn_cell/cell_0/basic_lstm_cell/biases'
+      'dis/encoder/rnn/multi_rnn_cell/cell_0/basic_lstm_cell/bias'
   ][0]
   encoder_lstm_w_1 = [
       v for v in tf.trainable_variables()
       if v.op.name ==
-      'dis/encoder/rnn/multi_rnn_cell/cell_1/basic_lstm_cell/weights'
+      'dis/encoder/rnn/multi_rnn_cell/cell_1/basic_lstm_cell/kernel'
   ][0]
   encoder_lstm_b_1 = [
       v for v in tf.trainable_variables()
       if v.op.name ==
-      'dis/encoder/rnn/multi_rnn_cell/cell_1/basic_lstm_cell/biases'
+      'dis/encoder/rnn/multi_rnn_cell/cell_1/basic_lstm_cell/bias'
   ][0]
 
   ## Attention.
@@ -723,41 +723,41 @@ def dis_seq2seq_vd(hparams):
   decoder_lstm_w_0 = [
       v for v in tf.trainable_variables()
       if v.op.name ==
-      'dis/decoder/rnn/multi_rnn_cell/cell_0/basic_lstm_cell/weights'
+      'dis/decoder/rnn/multi_rnn_cell/cell_0/basic_lstm_cell/kernel'
   ][0]
   decoder_lstm_b_0 = [
       v for v in tf.trainable_variables()
       if v.op.name ==
-      'dis/decoder/rnn/multi_rnn_cell/cell_0/basic_lstm_cell/biases'
+      'dis/decoder/rnn/multi_rnn_cell/cell_0/basic_lstm_cell/bias'
   ][0]
   decoder_lstm_w_1 = [
       v for v in tf.trainable_variables()
       if v.op.name ==
-      'dis/decoder/rnn/multi_rnn_cell/cell_1/basic_lstm_cell/weights'
+      'dis/decoder/rnn/multi_rnn_cell/cell_1/basic_lstm_cell/kernel'
   ][0]
   decoder_lstm_b_1 = [
       v for v in tf.trainable_variables()
       if v.op.name ==
-      'dis/decoder/rnn/multi_rnn_cell/cell_1/basic_lstm_cell/biases'
+      'dis/decoder/rnn/multi_rnn_cell/cell_1/basic_lstm_cell/bias'
   ][0]
 
   # Standard variable mappings.
   variable_mapping = {
-      'gen/encoder/rnn/multi_rnn_cell/cell_0/basic_lstm_cell/weights':
+      'gen/encoder/rnn/multi_rnn_cell/cell_0/basic_lstm_cell/kernel':
           encoder_lstm_w_0,
-      'gen/encoder/rnn/multi_rnn_cell/cell_0/basic_lstm_cell/biases':
+      'gen/encoder/rnn/multi_rnn_cell/cell_0/basic_lstm_cell/bias':
           encoder_lstm_b_0,
-      'gen/encoder/rnn/multi_rnn_cell/cell_1/basic_lstm_cell/weights':
+      'gen/encoder/rnn/multi_rnn_cell/cell_1/basic_lstm_cell/kernel':
           encoder_lstm_w_1,
-      'gen/encoder/rnn/multi_rnn_cell/cell_1/basic_lstm_cell/biases':
+      'gen/encoder/rnn/multi_rnn_cell/cell_1/basic_lstm_cell/bias':
           encoder_lstm_b_1,
-      'gen/decoder/rnn/multi_rnn_cell/cell_0/basic_lstm_cell/weights':
+      'gen/decoder/rnn/multi_rnn_cell/cell_0/basic_lstm_cell/kernel':
           decoder_lstm_w_0,
-      'gen/decoder/rnn/multi_rnn_cell/cell_0/basic_lstm_cell/biases':
+      'gen/decoder/rnn/multi_rnn_cell/cell_0/basic_lstm_cell/bias':
           decoder_lstm_b_0,
-      'gen/decoder/rnn/multi_rnn_cell/cell_1/basic_lstm_cell/weights':
+      'gen/decoder/rnn/multi_rnn_cell/cell_1/basic_lstm_cell/kernel':
           decoder_lstm_w_1,
-      'gen/decoder/rnn/multi_rnn_cell/cell_1/basic_lstm_cell/biases':
+      'gen/decoder/rnn/multi_rnn_cell/cell_1/basic_lstm_cell/bias':
           decoder_lstm_b_1
   }
 

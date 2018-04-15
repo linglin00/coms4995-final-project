@@ -215,21 +215,23 @@ def init_fn(init_savers, sess):
   """
   ## Load Generator weights from MaskGAN checkpoint.
   if FLAGS.maskgan_ckpt:
-    print('Restoring Generator from %s.' % FLAGS.maskgan_ckpt)
-    tf.logging.info('Restoring Generator from %s.' % FLAGS.maskgan_ckpt)
+    train_dir = FLAGS.base_directory + '/train'
+    model_save_path = tf.train.latest_checkpoint(train_dir)
+    print('Restoring Generator from %s.' % model_save_path) # FLAGS.maskgan_ckpt)
+    tf.logging.info('Restoring Generator from %s.' % model_save_path) #FLAGS.maskgan_ckpt)
     print('Asserting Generator is a seq2seq-variant.')
     tf.logging.info('Asserting Generator is a seq2seq-variant.')
     assert FLAGS.generator_model.startswith('seq2seq')
     init_saver = init_savers['init_saver']
-    init_saver.restore(sess, FLAGS.maskgan_ckpt)
+    init_saver.restore(sess, model_save_path) #FLAGS.maskgan_ckpt)
 
     ## Load the Discriminator weights from the MaskGAN checkpoint if
     # the weights are compatible.
     if FLAGS.discriminator_model == 'seq2seq_vd':
-      print('Restoring Discriminator from %s.' % FLAGS.maskgan_ckpt)
-      tf.logging.info('Restoring Discriminator from %s.' % FLAGS.maskgan_ckpt)
+      print('Restoring Discriminator from %s.' % model_save_path) #FLAGS.maskgan_ckpt)
+      tf.logging.info('Restoring Discriminator from %s.' % model_save_path) #FLAGS.maskgan_ckpt)
       dis_init_saver = init_savers['dis_init_saver']
-      dis_init_saver.restore(sess, FLAGS.maskgan_ckpt)
+      dis_init_saver.restore(sess, model_save_path)# FLAGS.maskgan_ckpt)
 
   ## Load weights from language model checkpoint.
   if FLAGS.language_model_ckpt_dir:

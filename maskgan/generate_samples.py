@@ -56,7 +56,7 @@ SAMPLE_VALIDATION = 'VALIDATION'
 tf.app.flags.DEFINE_enum('sample_mode', 'TRAIN',
                          [SAMPLE_TRAIN, SAMPLE_VALIDATION],
                          'Dataset to sample from.')
-tf.app.flags.DEFINE_string('output_path', '/tmp', 'Model output directory.')
+tf.app.flags.DEFINE_string('output_path', '/home/ll2948/musicGan/', 'Model output directory.')
 tf.app.flags.DEFINE_boolean(
     'output_masked_logs', False,
     'Whether to display for human evaluation (show masking).')
@@ -171,7 +171,7 @@ def generate_samples(hparams, data, id_to_word, log_dir, output_file):
 
     # Create the supervisor.  It will take care of initialization, summaries,
     # checkpoints, and recovery.
-    sv = tf.Supervisor(
+    sv = tf.train.Supervisor(
         logdir=log_dir,
         is_chief=is_chief,
         saver=model.saver,
@@ -269,7 +269,7 @@ def main(_):
   elif FLAGS.data_set == 'imdb':
     word_to_id = imdb_loader.build_vocab(
         os.path.join(FLAGS.data_dir, 'vocab.txt'))
-  id_to_word = {v: k for k, v in word_to_id.iteritems()}
+  id_to_word = {v: k for k, v in word_to_id.items()}
 
   FLAGS.vocab_size = len(id_to_word)
   print('Vocab size: %d' % FLAGS.vocab_size)

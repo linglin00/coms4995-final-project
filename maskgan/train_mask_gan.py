@@ -93,7 +93,7 @@ tf.app.flags.DEFINE_string(
 tf.app.flags.DEFINE_integer('batch_size', 20, 'The batch size.')
 tf.app.flags.DEFINE_integer('vocab_size', 10000, 'The vocabulary size.')
 tf.app.flags.DEFINE_integer('sequence_length', 20, 'The sequence length.')
-tf.app.flags.DEFINE_integer('max_steps', 1000000,
+tf.app.flags.DEFINE_integer('max_steps', 200000,
                             'Maximum number of steps to run.')
 tf.app.flags.DEFINE_string(
     'mask_strategy', 'random', 'Strategy for masking the words.  Determine the '
@@ -155,7 +155,7 @@ tf.app.flags.DEFINE_integer('print_every', 250,
                             'outputs of the model.')
 tf.app.flags.DEFINE_integer('max_num_to_print', 5,
                             'Number of samples to log/print.')
-tf.app.flags.DEFINE_boolean('print_verbose', False, 'Whether to print in full.')
+tf.app.flags.DEFINE_boolean('print_verbose', True, 'Whether to print in full.')
 tf.app.flags.DEFINE_integer('summaries_every', 100,
                             'Frequency to compute summaries.')
 tf.app.flags.DEFINE_boolean('eval_language_model', False,
@@ -1056,7 +1056,7 @@ def evaluate_model(hparams, data, train_dir, log, id_to_word,
       evaluation_variables = tf.trainable_variables()
       evaluation_variables.append(model.global_step)
       eval_saver = tf.train.Saver(var_list=evaluation_variables)
-      sv = tf.Supervisor(logdir=logdir)
+      sv = tf.train.Supervisor(logdir=logdir)
       sess = sv.PrepareSession(FLAGS.eval_master, start_standard_services=False)
 
       tf.logging.info('Before sv.Loop.')
