@@ -21,3 +21,7 @@ Install rtmidi using the whl file in this repo<br/>
 But mingus module doesn't support python3, so please copy the mingus files from here to the location installed.<br/>
 
 Then run play_midi.py
+
+# Unconditional Sample
+
+[![Watch the video](https://img.youtube.com/vi/YioF7ZJBYR4/0.jpg)](https://youtu.be/YioF7ZJBYR4)
