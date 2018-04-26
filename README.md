@@ -22,6 +22,9 @@ But mingus module doesn't support python3, so please copy the mingus files from 
 
 Then run play_midi.py
 
+# Conditional Sample
+![conditional sample](https://github.com/linglin00/coms4995-final-project/blob/master/conditional_sample.png)
+
 # Unconditional Sample
 
 [![Watch the video](https://img.youtube.com/vi/YioF7ZJBYR4/0.jpg)](https://youtu.be/YioF7ZJBYR4)
