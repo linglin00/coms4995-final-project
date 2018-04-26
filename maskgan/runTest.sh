@@ -1,7 +1,7 @@
 python train_mask_gan.py \
   --data_dir='/home/ll2948/musicGan/ptb' \
-  --batch_size=20 \
-  --sequence_length=100 \
+  --batch_size=100 \
+  --sequence_length=5 \
   --base_directory='/home/ll2948/musicGan/log' \
   --mask_strategy=random \
   --maskgan_ckpt='/home/ll2948/musicGan/log/train/model.ckpt-1080749' \

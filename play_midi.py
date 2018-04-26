@@ -1,10 +1,14 @@
 import pygame
 import mido
 from mido import MidiFile
+from mido import Message
+
 from pygame.locals import *
 from mingus.core import notes, chords
 from mingus.containers import *
 from os import sys
+import sys
+import time
 
 OCTAVES = 5  # number of octaves to show
 LOWEST = 2  # lowest octave to show
@@ -117,6 +121,7 @@ def play_note(note):
     text.blit(t, (0, 0))
     
 ## MAIN START 
+filename = sys.argv[1]
 pygame.init()
 pygame.font.init()
 font = pygame.font.SysFont('monospace', 12)
@@ -147,11 +152,14 @@ playing_b = []  # black keys being played right now
 quit = False
 tick = 0.0
 
+time.sleep(5)
 port = mido.open_output()
-mid = MidiFile('01Allemande.mid')
+#mid = MidiFile('01Allemande.mid')
+mid = MidiFile(filename)
 
-for msg in mid.play():
-    print(msg)
+for msg1 in mid.play():
+    #print(msg)
+    msg = mido.Message.from_str(str(msg1))
     port.send(msg)
     
     # Blit the picture of one octave OCTAVES times.
@@ -194,12 +202,13 @@ for msg in mid.play():
             screen.blit(pressed, (note[0], 1), (0, 0, 19, 68), pygame.BLEND_ADD)
 
     # Check for keypresses
-    play_note(convert_int_to_note(msg))
+    if msg.type == 'note_on' or msg.type == 'note_off':
+        play_note(convert_int_to_note(msg))
     
-    # Update the screen
+        # Update the screen
 
-    pygame.display.update()
-    tick += 0.001
+        pygame.display.update()
+        tick += 0.001
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
