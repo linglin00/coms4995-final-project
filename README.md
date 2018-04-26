@@ -1,6 +1,10 @@
 # comsw4995-final-project
 Final Project for COMS W4995 Spring 2018
 
+
+# Get midi files, generate data set
+Run GenerateCorpus.ipynb
+
 # Run maskGAN
 Install the following modules for python3:<br/>
 numpy<br/>
