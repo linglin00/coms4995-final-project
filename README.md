@@ -31,4 +31,3 @@ Then run play_midi.py
 
 # Unconditional Sample
 
-[![Watch the video](https://img.youtube.com/vi/YioF7ZJBYR4/0.jpg)](https://youtu.be/YioF7ZJBYR4)
